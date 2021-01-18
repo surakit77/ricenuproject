@@ -1,3 +1,4 @@
 .gitignore
+frontend/node_modeles/
 node_modeles/
 package-lock.json
