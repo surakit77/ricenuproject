@@ -1,23 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import Box from '@material-ui/core/Box';
+
 import DataTable from './DataTable'
 import Paper from '@material-ui/core/Paper';
-import { Route, Link } from "react-router-dom";
-import SearchAppBar from './AppBar'
-import ChipBar from './ChipBar'
 
 const drawerWidth = 240;
 
@@ -44,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ClippedDrawer() {
+export default function Table() {
   const classes = useStyles();
   const [chip, setChip] = useState([]);
 
@@ -55,23 +40,11 @@ export default function ClippedDrawer() {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <SearchAppBar/>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-      </Drawer>
       <main className={classes.content}>
-        <Toolbar />
         <Paper>
           <DataTable chip={chip} setChip={setChip}/>
         </Paper>
       </main>
-      <ChipBar chip={chip} setChip={setChip}/>
     </div> 
   );
 }

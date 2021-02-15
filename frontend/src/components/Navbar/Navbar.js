@@ -24,9 +24,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-
+import blueGrey from '@material-ui/core/colors/blueGrey';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   grow: {
+    display: 'flex',
     flexGrow: 1,
   },
   menuButton: {
@@ -34,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'none',
+    color: '#000',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
       fontWeight: 900,
@@ -63,9 +66,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    color: blueGrey[500],
   },
   inputRoot: {
-    color: 'inherit',
+    color: blueGrey[500],
+    
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -91,10 +96,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   link: {
-    color: '#fff',
-    fontSize: '1em',
-    fontWeight: 'bold',
+    color: '#000',
+    fontSize: '18px',
+    fontWeight: '50',
+    textAlign: 'center',
+    alignSelf: 'center',
     margin: theme.spacing(0, 0, '-3px', 2),
+  },
+  linkMoblie: {
+    color: '#000',
+    fontSize: '18px',
+    fontWeight: '50',
+    textAlign: 'center',
+    alignSelf: 'center',
   },
   header: {
     display: 'flex',
@@ -109,10 +123,12 @@ const useStyles = makeStyles((theme) => ({
   }
   },
   appbar: {
-    backgroundColor: '#009688',
+    backgroundColor: '#fff',
+    zIndex: theme.zIndex.drawer + 1,
   },
   sectionMobile: {
     display: 'flex',
+    color: blueGrey[500],
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
       display: 'none',
@@ -125,6 +141,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar(props) {
+  let history = useHistory();
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { window } = props;
@@ -132,19 +149,25 @@ export default function Navbar(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  function handleClick() {
+    history.push("/");
+  }
 
   const renderMobileMenu = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem >
+          <Link component="button" variant="body1" component={RouterLink} to="/" className={classes.linkMoblie}>
+            Home
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link component="button" variant="body1" component={RouterLink} to="/browse" className={classes.linkMoblie}>
+            Browse
+          </Link>
+        </ListItem>
       </List>
     </div>
   );
@@ -152,7 +175,7 @@ export default function Navbar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" className={classes.appbar}>
+      <AppBar position="fixed" className={classes.appbar}>
         <Toolbar>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -165,15 +188,15 @@ export default function Navbar(props) {
             </IconButton>
           </div>
           <header className={classes.header}>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography className={classes.title} variant="h6" noWrap onClick={handleClick}>
               RICE Nutrition
           </Typography>
             <div className={classes.sectionDesktop}>
-            <Link component="button" variant="body1" onClick={() => { console.info("I'm a button."); }} className={classes.link}>
-                BROWSE
+            <Link component="button" variant="body1" component={RouterLink} to="/" className={classes.link}>
+                Home
             </Link>
-              <Link component="button" variant="body1" onClick={() => { console.info("I'm a button."); }} className={classes.link}>
-                BROWSE
+              <Link component="button" variant="body1" component={RouterLink} to="/browse"  className={classes.link}>
+                Browse
             </Link>
             </div>
           </header>

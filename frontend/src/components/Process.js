@@ -105,7 +105,7 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-export default function CustomPaginationActionsTable() {
+export default function Process() {
     const classes = useStyles2();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);

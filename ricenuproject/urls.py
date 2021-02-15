@@ -16,10 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include 
+from rest_framework import routers
+from rice import views
+
+router = routers.DefaultRouter()
+router.register(r'nutrition', views.NutritionViewSet)
+router.register(r'physical', views.PhysicalViewSet)
+router.register(r'chemical', views.ChemicalViewSet)
+router.register(r'bioactive', views.BioactiveViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('rice.urls')),
     path('', include('frontend.urls')),
     path('', include('rice.urls', namespace="myapp")),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
